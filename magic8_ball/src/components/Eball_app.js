@@ -4,27 +4,40 @@ class Eball extends React.Component {
     constructor(props) {
         super(props);
             this.state = {
-                fortune: '',
-            };
+                userInput: '',
+                answer: ''
+            }
+            this.handleChange = this.handleChange.bind(this);
     }
+    
+    handleChange(event) {
+        this.setState({
+            userInput: event.target.value
+        });
+    }
+
     render() {
         return (
-            <div>
-                <p>{this.state.fortune}</p>
-                <button onClick={this._fetchFortune}>
+            <div className="question_Input">
+                <input 
+                type="text"
+                value={this.state.answer}
+                onChange={this.handleChange} //triggered when text is entered
+                placeholder="Enter text"
+                />
+                <button onClick={this._fetchAnswer}>
                     Ask the Magic 8ball
                 </button>
             </div>
         );
     }
-    _fetchFortune = () => {
-        let params = encodeURIComponent("Is today going to be a good day?");
-        const url = 'https://8ball.delegator.com/magic/JSON/' + params;
+    _fetchAnswer = () => {
+        const url = 'https://8ball.delegator.com/magic/JSON/';
         fetch(url)
             .then(response => response.json())
-            .then(fortuneJson => {
+            .then(answerJson => {
                 this.setState({
-                    fortune: fortuneJson.value,
+                    answer: answerJson.value,
                 }, () => {
                     console.log('Input recieved');
                 });
