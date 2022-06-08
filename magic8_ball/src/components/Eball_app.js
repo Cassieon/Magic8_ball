@@ -4,45 +4,75 @@ class Eball extends React.Component {
     constructor(props) {
         super(props);
             this.state = {
-                userInput: '',
-                answer: ''
-            }
-            this.handleChange = this.handleChange.bind(this);
-    }
+                joke: props.initialText || ``
+            };
+            // this.handleChange = this.handleChange.bind(this);
+            // this.handleChange = this.handleSubmit.bind(this);
+        }
+
+        _handleChange(event) {
+            this.setState({
+                joke: event.target.value
+            });
+        }
+
+        _handleSubmit = (event) => {
+            event.preventDefault();
+            // // _fetchJoke = () => {
+            //     this.setState({
+            //         // isLoading: true,
+            //     }, () => {
     
-    handleChange(event) {
-        this.setState({
-            userInput: event.target.value
-        });
+            //         let params = encodeURIComponent(`${input}`);
+            //         let uri = "https://8ball.delegator.com/magic/JSON/" + params;
+            //         fetch(uri)
+            //           .then(response => response.json())
+            //           .then(json => {
+            //             console.log(json);
+            //           });
+                        
+            //     })
+            // }
+        }
+        render() {
+            // const {joke} = this.state;
+            return (
+                <form onSubmit={this._handleSubmit}>
+                    <input className="input"
+                        type="text"
+                        placeholder="Ask away"
+                        // defaultValue={joke}
+                        onChange={this.handleChange}
+                        />
+                
+                
+                    <p>{this.state.joke} hello</p>
+                    <button 
+                    type="submit" 
+                    onClick={this._fetchJoke}>
+                        Jokey Jokes
+                    </button>
+                
+                </form>
+            );
+        }
+        _fetchJoke = () => {
+            // this.setState({
+                // isLoading: true,
+            // }, () => {
+
+                let params = encodeURIComponent(`${'input'}`);
+                let uri = "https://8ball.delegator.com/magic/JSON/" + params;
+                fetch(uri)
+                  .then(response => response.json())
+                  .then(json => {
+                      this.setState({text: json.magic.answer})
+                    console.log(json);
+                  });
+                    
+            
+        }
     }
 
-    render() {
-        return (
-            <div className="question_Input">
-                <input 
-                type="text"
-                value={this.state.answer}
-                onChange={this.handleChange} //triggered when text is entered
-                placeholder="Enter text"
-                />
-                <button onClick={this._fetchAnswer}>
-                    Ask the Magic 8ball
-                </button>
-            </div>
-        );
-    }
-    _fetchAnswer = () => {
-        const url = 'https://8ball.delegator.com/magic/JSON/';
-        fetch(url)
-            .then(response => response.json())
-            .then(answerJson => {
-                this.setState({
-                    answer: answerJson.value,
-                }, () => {
-                    console.log('Input recieved');
-                });
-            });
-    }
-}
 
 export default Eball;
