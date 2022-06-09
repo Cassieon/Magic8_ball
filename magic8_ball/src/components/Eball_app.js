@@ -1,10 +1,11 @@
 import React from 'react';
+import './Eball_app.css'
 
 class Eball extends React.Component {
     constructor(props) {
         super(props);
             this.state = {
-                joke: props.initialText || ``
+                answer: props.initialText || ``
             };
             // this.handleChange = this.handleChange.bind(this);
             // this.handleChange = this.handleSubmit.bind(this);
@@ -12,61 +13,49 @@ class Eball extends React.Component {
 
         _handleChange(event) {
             this.setState({
-                joke: event.target.value
+                answer: event.target.value
             });
         }
 
         _handleSubmit = (event) => {
-            event.preventDefault();
-            // // _fetchJoke = () => {
-            //     this.setState({
-            //         // isLoading: true,
-            //     }, () => {
-    
-            //         let params = encodeURIComponent(`${input}`);
-            //         let uri = "https://8ball.delegator.com/magic/JSON/" + params;
-            //         fetch(uri)
-            //           .then(response => response.json())
-            //           .then(json => {
-            //             console.log(json);
-            //           });
-                        
-            //     })
-            // }
+            event.preventDefault(); // so page does not reload 
         }
+
         render() {
-            // const {joke} = this.state;
             return (
-                <form onSubmit={this._handleSubmit}>
-                    <input className="input"
-                        type="text"
-                        placeholder="Ask away"
-                        // defaultValue={joke}
-                        onChange={this.handleChange}
-                        />
-                
-                
-                    <p>{this.state.joke} hello</p>
-                    <button 
-                    type="submit" 
-                    onClick={this._fetchJoke}>
-                        Jokey Jokes
-                    </button>
+                <div className="main">
+                    <form onSubmit={this._handleSubmit}>
+                        <input className="input"
+                            type="text"
+                            placeholder="Enter text"
+                            onChange={this.handleChange}
+                            />
+                    
+                    
+                        <div className="large-circle">
+                            <div className="small-circle">
+                                <div className="triangle">
+                                    <p>{this.state.answer}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button 
+                        type="submit" 
+                        onClick={this._fetchAnswer}>
+                            Ask Magic 8ball
+                        </button>
                 
                 </form>
+                </div>
             );
         }
-        _fetchJoke = () => {
-            // this.setState({
-                // isLoading: true,
-            // }, () => {
-
+        _fetchAnswer = () => {
                 let params = encodeURIComponent(`${'input'}`);
                 let uri = "https://8ball.delegator.com/magic/JSON/" + params;
                 fetch(uri)
-                  .then(response => response.json())
+                  .then(response => response.json()) // promise 
                   .then(json => {
-                      this.setState({text: json.magic.answer})
+                      this.setState({answer: json.magic.answer}) // calling the exact info we need from api 
                     console.log(json);
                   });
                     

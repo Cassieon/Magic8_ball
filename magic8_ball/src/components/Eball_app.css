@@ -1,0 +1,39 @@
+/* question input box  */
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input {
+    width: 200px;
+    height: 25px;
+    margin: 50px;
+}
+
+/* black part of 8ball */
+.large-circle {
+    height: 500px;
+    width: 500px;
+    background-color: black;
+    border-radius: 50%;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    align-items: center;
+
+}
+
+.small-circle {
+    height: 275px;
+    width: 275px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 110px;
+}
+
+/* triangle that holds answer */
+
+
