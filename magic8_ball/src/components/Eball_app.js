@@ -35,7 +35,7 @@ class Eball extends React.Component {
                         <div className="large-circle">
                             <div className="small-circle">
                                 <div className="triangle">
-                                    <p>{this.state.answer}</p>
+                                    <span>{this.state.answer}</span>
                                 </div>
                             </div>
                         </div>
